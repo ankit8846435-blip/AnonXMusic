@@ -3,7 +3,7 @@
 # This file is part of AnonXMusic
 
 
-from pyrogram import types
+from pyrogram import enums, types
 
 from anony import app, config, lang
 from anony.core.lang import lang_codes
@@ -13,6 +13,7 @@ class Inline:
     def __init__(self):
         self.ikm = types.InlineKeyboardMarkup
         self.ikb = types.InlineKeyboardButton
+        self.style = enums.ButtonStyle
 
     def cancel_dl(self, text) -> types.InlineKeyboardMarkup:
         return self.ikm([[self.ikb(text=text, callback_data=f"cancel_dl")]])
@@ -89,7 +90,9 @@ class Inline:
             [
                 [
                     self.ikb(
-                        text=_text, callback_data=f"controls force {chat_id} {item_id}"
+                        text=_text,
+                        callback_data=f"controls force {chat_id} {item_id}",
+                        style=self.style.SUCCESS,
                     )
                 ]
             ]
@@ -140,6 +143,7 @@ class Inline:
                 self.ikb(
                     text=lang["add_me"],
                     url=f"https://t.me/{app.username}?startgroup=true",
+                    style=self.style.PRIMARY,
                 )
             ],
             [self.ikb(text=lang["help"], callback_data="help")],
@@ -154,6 +158,7 @@ class Inline:
                     self.ikb(
                         text=lang["source"],
                         url="https://github.com/AnonymousX1025/AnonXMusic",
+                        style=self.style.DANGER,
                     )
                 ]
             ]
